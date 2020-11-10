@@ -7,7 +7,6 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -19,7 +18,9 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
-import tolk.studio.weather_app_new.fragment_home.HomeFragment;
+import tolk.studio.weather_app_new.fragment_dialog.FragmentDialog;
+import tolk.studio.weather_app_new.fragment_home.FragmenHome;
+import tolk.studio.weather_app_new.fragment_week_weather.FragmentWeekWeather;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,10 +38,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.nav_host_fragment_container, new Fragment())
+                    .replace(R.id.main_fragment, new FragmenHome())
                     .commit();
 
         }
@@ -106,14 +107,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (item.getItemId()){
             case R.id.nav_home:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_fragment, new FragmenHome())
+                        .commit();
                 break;
             case R.id.nav_weekWeather:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.nav_host_fragment_container, new HomeFragment())    //тут всё падает
+                        .replace(R.id.main_fragment, new FragmentWeekWeather())
                         .commit();
                 break;
             case R.id.developers:
+                new FragmentDialog().show(getSupportFragmentManager(),"");
                 break;
         }
 
