@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cities">
+        <item>Москва</item>
+        <item>Сочи</item>
+        <item>Барнаул</item>
+    </string-array>
+
+    <string-array name="days">
+        <item>Понедельник</item>
+        <item>Вторник</item>
+        <item>Среда</item>
+        <item>Четверг</item>
+        <item>Пятница</item>
+        <item>Суббота</item>
+        <item>Воскресение</item>
+    </string-array>
+
+    <integer-array name="cities_img">
+        <item>@drawable/msc</item>
+        <item>@drawable/sochi</item>
+        <item>@drawable/barnaul</item>
+        <item>@drawable/msc</item>
+        <item>@drawable/sochi</item>
+        <item>@drawable/msc</item>
+        <item>@drawable/barnaul</item>
+    </integer-array>
+
+    <string-array name="web_site">
+        <item>"https://yandex.ru/pogoda/moscow"</item>
+        <item>https://yandex.ru/pogoda/sochi</item>
+        <item>https://yandex.ru/pogoda/barnaul</item>
+    </string-array>
+</resources>
