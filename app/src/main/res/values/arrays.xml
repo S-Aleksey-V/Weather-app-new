@@ -16,15 +16,7 @@
         <item>Воскресение</item>
     </string-array>
 
-    <integer-array name="cities_img">
-        <item>@drawable/msc</item>
-        <item>@drawable/sochi</item>
-        <item>@drawable/barnaul</item>
-        <item>@drawable/msc</item>
-        <item>@drawable/sochi</item>
-        <item>@drawable/msc</item>
-        <item>@drawable/barnaul</item>
-    </integer-array>
+
 
     <string-array name="web_site">
         <item>"https://yandex.ru/pogoda/moscow"</item>
