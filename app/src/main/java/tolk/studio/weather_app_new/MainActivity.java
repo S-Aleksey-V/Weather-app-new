@@ -25,8 +25,6 @@ import tolk.studio.weather_app_new.fragment_week_weather.FragmentWeekWeather;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,9 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .beginTransaction()
                     .replace(R.id.main_fragment, new FragmenHome())
                     .commit();
-
         }
-
     }
 
     private void initDrawer(Toolbar toolbar){
@@ -83,10 +79,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -98,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -130,7 +123,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
-
-
 
 }

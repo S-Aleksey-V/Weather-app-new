@@ -27,8 +27,15 @@ import java.util.stream.Collectors;
 import javax.net.ssl.HttpsURLConnection;
 
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import tolk.studio.weather_app_new.BuildConfig;
 import tolk.studio.weather_app_new.GetUrl;
 import tolk.studio.weather_app_new.R;
+import tolk.studio.weather_app_new.interfaces.OpenWeather;
 import tolk.studio.weather_app_new.weather.WeatherRequest;
 
 
@@ -36,19 +43,46 @@ public class FragmenHome extends Fragment {
 
     private static final String TAG = "WEATHER";
 
-    private EditText city;
+    private OpenWeather openWeather;
+    private EditText cityName;
     private EditText temperature;
     private EditText pressure;
     private EditText humidity;
     private EditText windSpeed;
     private EditText enteredCity;
 
+    private void initRetrofit(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.openweathermap.org/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        openWeather = retrofit.create(OpenWeather.class);
+    }
+    private void requestRetrofit(String city, String keyApi){
+        openWeather.loadWeather(city, BuildConfig.WEATHER_API_KEY)
+                .enqueue(new Callback<WeatherRequest>() {
+                    @Override
+                    public void onResponse(Call<WeatherRequest> call, Response<WeatherRequest> response) {
+                        final WeatherRequest request = response.body();
+                         if(request != null){
+                             cityName.setText(request.getName());
+                             temperature.setText(String.format("%f2", request.getMain().getTemp()-273));
+                             pressure.setText(String.format("%d", request.getMain().getPressure()));
+                             humidity.setText(String.format("%d", request.getMain().getHumidity()));
+                             windSpeed.setText(String.format("%d", request.getWind().getSpeed()));
+                         }
+                    }
+
+                    @Override
+                    public void onFailure(Call<WeatherRequest> call, Throwable t) {
+
+                    }
+                });
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_fragmen_home, container, false);
     }
 
@@ -56,7 +90,7 @@ public class FragmenHome extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        city = view.findViewById(R.id.textCity);
+        cityName = view.findViewById(R.id.textCity);
         temperature = view.findViewById(R.id.textTemprature);
         pressure = view.findViewById(R.id.textPressure);
         humidity = view.findViewById(R.id.textHumidity);
@@ -67,67 +101,10 @@ public class FragmenHome extends Fragment {
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-//                    final String url = String.format(
-//                            "https://api.openweathermap.org/data/2.5/weather?q=%s&appid=%s",
-//                            enteredCity.getText(),
-//                            BuildConfig.WEATHER_API_KEY
+                initRetrofit();
+                requestRetrofit(enteredCity.getText().toString(),BuildConfig.WEATHER_API_KEY);
 
-                    final GetUrl getUrl = new GetUrl();
-                    final String url = getUrl.getData(enteredCity.getText());
-
-                    final URL uri = new URL(url);
-                    final Handler handler = new Handler(); // Запоминаем основной поток
-
-                    new Thread(new Runnable() {
-                        @RequiresApi(api = Build.VERSION_CODES.N)
-                        public void run() {
-                            HttpsURLConnection urlConnection = null;
-                            try {
-                                urlConnection = (HttpsURLConnection) uri.openConnection();
-                                urlConnection.setRequestMethod("GET"); // установка метода получения данных -GET
-                                urlConnection.setReadTimeout(10000); // установка таймаута - 10 000 миллисекунд
-                                BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream())); // читаем  данные в поток
-                                String result = getLines(in);
-//                                // преобразование данных запроса в модель
-                                Gson gson = new Gson();
-                                final WeatherRequest weatherRequest = gson.fromJson(result, WeatherRequest.class);
-                                // Возвращаемся к основному потоку
-                                handler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        displayWeather(weatherRequest);
-                                    }
-                                });
-                            } catch (Exception e) {
-                                Log.e(TAG, "Fail connection", e);
-                                e.printStackTrace();
-                            } finally {
-                                if (null != urlConnection) {
-                                    urlConnection.disconnect();
-                                }
-                            }
-                        }
-                    }).start();
-                } catch (MalformedURLException e) {
-                    Log.e(TAG, "Fail URI", e);
-                    e.printStackTrace();
-                }
             }
-
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            private String getLines(BufferedReader in) {
-                return in.lines().collect(Collectors.joining("\n"));
-            }
-
-            public void displayWeather(WeatherRequest weatherRequest){
-                city.setText(weatherRequest.getName());
-                temperature.setText(String.format("%f2", weatherRequest.getMain().getTemp()-273));
-                pressure.setText(String.format("%d", weatherRequest.getMain().getPressure()));
-                humidity.setText(String.format("%d", weatherRequest.getMain().getHumidity()));
-                windSpeed.setText(String.format("%d", weatherRequest.getWind().getSpeed()));
-            }
-
         });
 
     }

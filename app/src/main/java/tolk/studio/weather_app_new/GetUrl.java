@@ -12,7 +12,6 @@ public class GetUrl {
                city,
                BuildConfig.WEATHER_API_KEY);
 
-
                return url;
    }
 
