@@ -10,12 +10,14 @@
 
     <EditText
         android:id="@+id/enteredCity"
+        android:hint = "@string/Enter_city"
         android:layout_width="134dp"
         android:layout_height="45dp"
         app:layout_constraintBottom_toTopOf="@+id/refresh"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+         />
 
     <Button
         android:id="@+id/refresh"
@@ -153,10 +155,17 @@
         </TableRow>
     </TableLayout>
 
-
-
-
-
+    <ImageView
+        android:id="@+id/imageCity"
+        android:layout_width="104dp"
+        android:layout_height="129dp"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/refresh"
+        app:layout_constraintHorizontal_bias="0.255"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.046" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

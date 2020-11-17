@@ -1,31 +1,21 @@
 package tolk.studio.weather_app_new.fragment_home;
 
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 
-import com.google.gson.Gson;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.stream.Collectors;
-
-import javax.net.ssl.HttpsURLConnection;
-
+import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +23,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import tolk.studio.weather_app_new.BuildConfig;
-import tolk.studio.weather_app_new.GetUrl;
 import tolk.studio.weather_app_new.R;
 import tolk.studio.weather_app_new.interfaces.OpenWeather;
 import tolk.studio.weather_app_new.weather.WeatherRequest;
@@ -97,12 +86,23 @@ public class FragmenHome extends Fragment {
         windSpeed = view.findViewById(R.id.textWindspeed);
         enteredCity = view.findViewById(R.id.enteredCity);
         Button refresh = view.findViewById(R.id.refresh);
+        ImageView imageCity = view.findViewById(R.id.imageCity);
+        Picasso.get()
+                .load("https://cdn.lifehacker.ru/wp-content/uploads/2013/07/shutterstock_144625241.jpg")
+                .into(imageCity);
+
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 initRetrofit();
                 requestRetrofit(enteredCity.getText().toString(),BuildConfig.WEATHER_API_KEY);
+
+                Picasso.get()
+                        .load("https://images.unsplash.com/photo-1600619023128-cba91b3300bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80")
+                        .into(imageCity);
+
+
 
             }
         });
