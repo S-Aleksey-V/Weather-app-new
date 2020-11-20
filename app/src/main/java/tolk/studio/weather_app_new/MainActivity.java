@@ -7,6 +7,9 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -73,9 +76,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Snackbar.make(searchText,query,Snackbar.LENGTH_LONG).show();
-                Intent weatherNow = new Intent(Intent.ACTION_VIEW);
-                weatherNow.setData(Uri.parse("https://yandex.ru/pogoda"));
-                startActivity(weatherNow);
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_fragment, new FragmenHome())
+                        .commit();
+
+                FragmenHome.initRetrofit();
+                FragmenHome.requestRetrofit(searchText.getQuery().toString(),BuildConfig.WEATHER_API_KEY);
+
+                FragmentWeekWeather.generateData(searchText.getQuery().toString());
+
                 return true;
             }
 

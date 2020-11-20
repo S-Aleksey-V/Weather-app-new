@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
@@ -8,45 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/enteredCity"
-        android:hint = "@string/Enter_city"
-        android:layout_width="134dp"
-        android:layout_height="45dp"
-        app:layout_constraintBottom_toTopOf="@+id/refresh"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-         />
-
-    <Button
-        android:id="@+id/refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/refresh"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="347dp"
+        android:layout_height="455dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/refresh">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.902">
 
         <TableRow
             android:layout_width="match_parent"
@@ -65,8 +35,7 @@
                 android:ems="10"
                 android:enabled="false"
                 android:inputType="textPersonName"
-                android:text=""
-                 />
+                android:text="" />
 
         </TableRow>
 
@@ -87,8 +56,7 @@
                 android:ems="10"
                 android:enabled="false"
                 android:inputType="textPersonName"
-                android:text=""
-                 />
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -108,8 +76,7 @@
                 android:ems="10"
                 android:enabled="false"
                 android:inputType="textPersonName"
-                android:text=""
-                 />
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -129,8 +96,7 @@
                 android:ems="10"
                 android:enabled="false"
                 android:inputType="textPersonName"
-                android:text=""
-                 />
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -150,8 +116,7 @@
                 android:ems="10"
                 android:enabled="false"
                 android:inputType="textPersonName"
-                android:text=""
-                 />
+                android:text="" />
         </TableRow>
     </TableLayout>
 
@@ -159,13 +124,10 @@
         android:id="@+id/imageCity"
         android:layout_width="104dp"
         android:layout_height="129dp"
-        android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/refresh"
-        app:layout_constraintHorizontal_bias="0.255"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.046" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
