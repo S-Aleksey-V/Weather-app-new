@@ -8,24 +8,25 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.widget.ImageView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.squareup.picasso.Picasso;
 
 import tolk.studio.weather_app_new.fragment_dialog.FragmentDialog;
 import tolk.studio.weather_app_new.fragment_home.FragmenHome;
 import tolk.studio.weather_app_new.fragment_week_weather.FragmentWeekWeather;
 
 
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-
 
 
     @Override
@@ -38,14 +39,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
+
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.main_fragment, new FragmenHome())
                     .commit();
-
         }
-
     }
 
     private void initDrawer(Toolbar toolbar){
@@ -85,10 +85,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -100,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -132,4 +129,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
 }
