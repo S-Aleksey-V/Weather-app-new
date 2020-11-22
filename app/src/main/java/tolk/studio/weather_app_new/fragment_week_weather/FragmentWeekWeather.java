@@ -16,36 +16,38 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import tolk.studio.weather_app_new.CustomAdapter;
 import tolk.studio.weather_app_new.R;
+
 
 
 public class FragmentWeekWeather extends Fragment {
 
     static List<String> data = new ArrayList<>();
-
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_week_weather, container, false);
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(new CustomAdapter(generateDataCycle()));
+        recyclerView.setAdapter(new CustomAdapter(data));
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-    }
 
-    private List<String> generateDataCycle() {
-        return data;
     }
 
     public static List<String> generateData(String city) {
             data.add(city);
+
         return data;
     }
 }

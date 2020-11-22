@@ -45,7 +45,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
         @Override
         public void onClick(View view) {
-            Toast.makeText(view.getContext(), "position : " + getLayoutPosition() + " Вы искали " + this.textView.getText(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.getContext(), "position : " + getLayoutPosition() + " Вы искали " + this.textView.getText(), Toast.LENGTH_LONG).show();
         }
     }
 }

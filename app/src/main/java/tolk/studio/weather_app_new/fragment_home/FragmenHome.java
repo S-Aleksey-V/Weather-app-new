@@ -26,10 +26,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import tolk.studio.weather_app_new.App;
 import tolk.studio.weather_app_new.BuildConfig;
 import tolk.studio.weather_app_new.CustomAdapter;
 import tolk.studio.weather_app_new.R;
+import tolk.studio.weather_app_new.dao.CityDao;
+import tolk.studio.weather_app_new.database.AppDatabase;
 import tolk.studio.weather_app_new.interfaces.OpenWeather;
+import tolk.studio.weather_app_new.model.City;
 import tolk.studio.weather_app_new.weather.WeatherRequest;
 
 
@@ -43,6 +47,7 @@ public class FragmenHome extends Fragment {
     private static EditText pressure;
     private static EditText humidity;
     private static EditText windSpeed;
+    private static ImageView imageCity;
 
 
     public static void initRetrofit(){
@@ -65,6 +70,15 @@ public class FragmenHome extends Fragment {
                              pressure.setText(String.format("%d", request.getMain().getPressure()));
                              humidity.setText(String.format("%d", request.getMain().getHumidity()));
                              windSpeed.setText(String.format("%d", request.getWind().getSpeed()));
+
+
+                             AppDatabase db = App.getInstance().getDatabase();
+                             CityDao cityDao = db.cityDao();
+                             City city = new City();
+                             city.city = request.getName();
+                             city.temp = request.getMain().getTemp()-273;
+                             cityDao.insert(city);
+
                          }
                     }
 
@@ -90,10 +104,11 @@ public class FragmenHome extends Fragment {
         pressure = view.findViewById(R.id.textPressure);
         humidity = view.findViewById(R.id.textHumidity);
         windSpeed = view.findViewById(R.id.textWindspeed);
-        ImageView imageCity = view.findViewById(R.id.imageCity);
+        imageCity = view.findViewById(R.id.imageCity);
         Picasso.get()
                 .load("https://cdn.lifehacker.ru/wp-content/uploads/2013/07/shutterstock_144625241.jpg")
                 .into(imageCity);
+
 
 
     }

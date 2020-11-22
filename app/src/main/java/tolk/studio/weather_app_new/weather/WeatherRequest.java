@@ -1,12 +1,17 @@
 package tolk.studio.weather_app_new.weather;
 
+import android.widget.ImageView;
+
 public class WeatherRequest {
     private Coord coord;
     private Weather[] weather;
     private Main main;
     private Wind wind;
     private Clouds clouds;
-    private String name;
+    private String name;;
+
+
+
 
     public Coord getCoord() {
         return coord;
