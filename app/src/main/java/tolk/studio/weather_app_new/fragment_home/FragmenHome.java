@@ -105,6 +105,7 @@ public class FragmenHome extends Fragment {
         humidity = view.findViewById(R.id.textHumidity);
         windSpeed = view.findViewById(R.id.textWindspeed);
         imageCity = view.findViewById(R.id.imageCity);
+
         Picasso.get()
                 .load("https://cdn.lifehacker.ru/wp-content/uploads/2013/07/shutterstock_144625241.jpg")
                 .into(imageCity);
