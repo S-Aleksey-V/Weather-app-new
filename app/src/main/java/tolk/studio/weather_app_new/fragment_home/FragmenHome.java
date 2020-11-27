@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,37 +18,46 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import tolk.studio.weather_app_new.App;
 import tolk.studio.weather_app_new.BuildConfig;
+import tolk.studio.weather_app_new.CustomAdapter;
 import tolk.studio.weather_app_new.R;
+import tolk.studio.weather_app_new.dao.CityDao;
+import tolk.studio.weather_app_new.database.AppDatabase;
 import tolk.studio.weather_app_new.interfaces.OpenWeather;
+import tolk.studio.weather_app_new.model.City;
 import tolk.studio.weather_app_new.weather.WeatherRequest;
 
 
 public class FragmenHome extends Fragment {
 
     private static final String TAG = "WEATHER";
+    private static OpenWeather openWeather;
 
-    private OpenWeather openWeather;
-    private EditText cityName;
-    private EditText temperature;
-    private EditText pressure;
-    private EditText humidity;
-    private EditText windSpeed;
-    private EditText enteredCity;
+    private static EditText cityName;
+    private static EditText temperature;
+    private static EditText pressure;
+    private static EditText humidity;
+    private static EditText windSpeed;
+    private static ImageView imageCity;
 
-    private void initRetrofit(){
+
+    public static void initRetrofit(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.openweathermap.org/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         openWeather = retrofit.create(OpenWeather.class);
     }
-    private void requestRetrofit(String city, String keyApi){
+    public static void requestRetrofit(String city, String keyApi){
         openWeather.loadWeather(city, BuildConfig.WEATHER_API_KEY)
                 .enqueue(new Callback<WeatherRequest>() {
                     @Override
@@ -55,10 +65,20 @@ public class FragmenHome extends Fragment {
                         final WeatherRequest request = response.body();
                          if(request != null){
                              cityName.setText(request.getName());
+
                              temperature.setText(String.format("%f2", request.getMain().getTemp()-273));
                              pressure.setText(String.format("%d", request.getMain().getPressure()));
                              humidity.setText(String.format("%d", request.getMain().getHumidity()));
                              windSpeed.setText(String.format("%d", request.getWind().getSpeed()));
+
+
+                             AppDatabase db = App.getInstance().getDatabase();
+                             CityDao cityDao = db.cityDao();
+                             City city = new City();
+                             city.city = request.getName();
+                             city.temp = request.getMain().getTemp()-273;
+                             cityDao.insert(city);
+
                          }
                     }
 
@@ -84,28 +104,13 @@ public class FragmenHome extends Fragment {
         pressure = view.findViewById(R.id.textPressure);
         humidity = view.findViewById(R.id.textHumidity);
         windSpeed = view.findViewById(R.id.textWindspeed);
-        enteredCity = view.findViewById(R.id.enteredCity);
-        Button refresh = view.findViewById(R.id.refresh);
-        ImageView imageCity = view.findViewById(R.id.imageCity);
+        imageCity = view.findViewById(R.id.imageCity);
         Picasso.get()
                 .load("https://cdn.lifehacker.ru/wp-content/uploads/2013/07/shutterstock_144625241.jpg")
                 .into(imageCity);
 
 
-        refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                initRetrofit();
-                requestRetrofit(enteredCity.getText().toString(),BuildConfig.WEATHER_API_KEY);
-
-                Picasso.get()
-                        .load("https://images.unsplash.com/photo-1600619023128-cba91b3300bb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80")
-                        .into(imageCity);
-
-
-
-            }
-        });
 
     }
+
 }

@@ -8,25 +8,20 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.squareup.picasso.Picasso;
 
 import tolk.studio.weather_app_new.fragment_dialog.FragmentDialog;
 import tolk.studio.weather_app_new.fragment_home.FragmenHome;
 import tolk.studio.weather_app_new.fragment_week_weather.FragmentWeekWeather;
 
 
-
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
 
 
     @Override
@@ -45,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .beginTransaction()
                     .replace(R.id.main_fragment, new FragmenHome())
                     .commit();
+
         }
     }
 
@@ -73,9 +69,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Snackbar.make(searchText,query,Snackbar.LENGTH_LONG).show();
-                Intent weatherNow = new Intent(Intent.ACTION_VIEW);
-                weatherNow.setData(Uri.parse("https://yandex.ru/pogoda"));
-                startActivity(weatherNow);
+
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_fragment, new FragmenHome())
+                        .commit();
+
+                FragmenHome.initRetrofit();
+                FragmenHome.requestRetrofit(searchText.getQuery().toString(),BuildConfig.WEATHER_API_KEY);
+                FragmentWeekWeather.generateData(searchText.getQuery().toString());
+
                 return true;
             }
 
