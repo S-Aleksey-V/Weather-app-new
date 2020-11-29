@@ -16,6 +16,12 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -37,7 +43,10 @@ import tolk.studio.weather_app_new.model.City;
 import tolk.studio.weather_app_new.weather.WeatherRequest;
 
 
-public class FragmenHome extends Fragment {
+public class FragmenHome extends Fragment  {
+
+    private Marker currentMarker;
+    private GoogleMap mMap;
 
     private static final String TAG = "WEATHER";
     private static OpenWeather openWeather;
@@ -109,6 +118,8 @@ public class FragmenHome extends Fragment {
         Picasso.get()
                 .load("https://cdn.lifehacker.ru/wp-content/uploads/2013/07/shutterstock_144625241.jpg")
                 .into(imageCity);
+
+
 
 
 
