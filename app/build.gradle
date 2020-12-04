@@ -29,12 +29,39 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            applicationIdSuffix '.debug'
+        }
+
+
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    flavorDimensions 'version','view'
+    productFlavors {
+        freeConfig {
+            dimension 'version'
+            versionNameSuffix '.free'
+            applicationIdSuffix = '.free'
+        }
+        gismeteo{
+            dimension 'view'
+            versionNameSuffix '.gismeteo'
+            applicationIdSuffix = '.gismeteo'
+        }
+        yandex{
+            dimension 'view'
+            versionNameSuffix '.free'
+            applicationIdSuffix = '.free'
+        }
+    }
+
+
 }
+
 
 dependencies {
 
