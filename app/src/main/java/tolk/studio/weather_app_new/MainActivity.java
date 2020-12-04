@@ -133,14 +133,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         if (!task.isSuccessful()) {
                             // Не удалось получить токен, произошла ошибка
-                            Log.w("TAG", "getInstanceId failed", task.getException());
+                            Log.w("TAGggggggggggg", "getInstanceId failed", task.getException());
                             return;
                         }
 
                         // Получить токен
                         String token = task.getResult().getToken();
                         // Сохранить токен...
-                        Log.d("TAGGGGGG",token);
+                        Log.d("TAGGGGGGGGGGGG",token);
                     }
                 });
 
@@ -211,7 +211,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if(id == R.id.action_settings){
-            return true;
+            Intent intent = new Intent(this,Auth.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

@@ -38,7 +38,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     @Override
     public void onNewToken(String token) {
 
-        Log.d("PushMessage", "Token " + token);
+        Log.d("PppppushMessage", "Token " + token);
         sendRegistrationToServer(token);
     }
 
